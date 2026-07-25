@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 
+import healthRoute from "./routes/health.route.js";
 
 const app = express();
 
@@ -9,11 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "Cafe Matcha API is running 🚀"
-  });
-});
+app.use("/api/health", healthRoute);
 
 
 export default app;
