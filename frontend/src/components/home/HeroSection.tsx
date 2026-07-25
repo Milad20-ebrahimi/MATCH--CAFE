@@ -1,175 +1,295 @@
 import Image from "next/image";
 import Link from "next/link";
+import {
+  Leaf,
+  Coffee,
+  ShieldCheck,
+  Truck,
+} from "lucide-react";
 
 import Container from "@/components/shared/Container";
 
 
 export default function HeroSection() {
   return (
-    <section
-      className="
-      relative
-      overflow-hidden
-      bg-cream
-      pt-32
-      pb-20
-      "
-    >
+    <section className="relative overflow-hidden">
+
+      {/* Background Image */}
+
+      <div className="absolute inset-0">
+
+        <Image
+          src="/images/matcha-hero.jpg"
+          alt="Matcha Cafe"
+          fill
+          priority
+          className="object-cover"
+        />
+
+
+        {/* Dark overlay */}
+
+        <div className="absolute inset-0 bg-black/45" />
+
+
+        <div
+          className="
+          absolute
+          inset-0
+          bg-gradient-to-r
+          from-forest/90
+          via-forest/60
+          to-transparent
+          "
+        />
+
+      </div>
+
+
 
       <Container>
 
         <div
           className="
-          grid
-          items-center
-          gap-12
-          md:grid-cols-2
+          relative
+          flex
+          min-h-[760px]
+          flex-col
+          justify-center
+          gap-8
+          py-28
           "
         >
 
 
-          {/* Content */}
+          {/* Badge */}
+
+          <span
+            className="
+            inline-flex
+            w-fit
+            items-center
+            gap-2
+            rounded-full
+            bg-white/10
+            px-5
+            py-2
+            text-sm
+            text-white
+            backdrop-blur-md
+            "
+          >
+            <Leaf size={16}/>
+            کافه تخصصی ماچا و قهوه
+          </span>
+
+
+
+          {/* Title */}
+
+          <h1
+            className="
+            max-w-3xl
+            font-serif
+            text-5xl
+            font-bold
+            leading-[1.4]
+            text-white
+            md:text-7xl
+            "
+          >
+            تجربه اصیل ماچا
+            <br/>
+            در خانه شما
+          </h1>
+
+
+
+          {/* Description */}
+
+          <p
+            className="
+            max-w-xl
+            text-base
+            leading-8
+            text-white/80
+            md:text-lg
+            "
+          >
+            بهترین ماچا، قهوه و محصولات پریمیوم
+            با کیفیت کافه‌ای برای تجربه‌ای متفاوت
+            در خانه شما.
+          </p>
+
+
+
+          {/* Buttons */}
 
           <div
             className="
-            text-right
+            flex
+            flex-wrap
+            gap-4
             "
           >
 
-            <span
+            <Link
+              href="/cafe"
               className="
-              mb-5
-              inline-block
               rounded-full
-              bg-sage/30
-              px-5
-              py-2
+              bg-amber
+              px-8
+              py-4
               text-sm
               font-medium
-              text-forest
+              text-white
+              transition
+              hover:scale-105
               "
             >
-              MATCH--CAFE
-            </span>
+              مشاهده منوی کافه
+            </Link>
 
 
-            <h1
+
+            <Link
+              href="/shop"
               className="
-              font-serif
-              text-4xl
-              font-bold
-              leading-[1.5]
-              text-forest
-              md:text-6xl
+              rounded-full
+              border
+              border-white/40
+              bg-white/10
+              px-8
+              py-4
+              text-sm
+              font-medium
+              text-white
+              backdrop-blur-md
+              transition
+              hover:bg-white
+              hover:text-forest
               "
             >
-              تجربه اصیل ماچا
-              <br />
-              در خانه شما
-            </h1>
-
-
-            <p
-              className="
-              mt-6
-              max-w-xl
-              text-base
-              leading-8
-              text-forest/70
-              "
-            >
-              بهترین ماچا، قهوه، چای و محصولات پریمیوم
-              را با کیفیت کافه‌ای در خانه خود تجربه کنید.
-            </p>
-
-
-            <div
-              className="
-              mt-8
-              flex
-              flex-wrap
-              gap-4
-              "
-            >
-
-              <Link
-                href="/shop"
-                className="
-                rounded-full
-                bg-amber
-                px-7
-                py-3.5
-                text-sm
-                font-medium
-                text-white
-                transition
-                hover:bg-amber-dark
-                "
-              >
-                مشاهده محصولات
-              </Link>
-
-
-              <Link
-                href="/cafe"
-                className="
-                rounded-full
-                border
-                border-forest/20
-                px-7
-                py-3.5
-                text-sm
-                font-medium
-                text-forest
-                transition
-                hover:bg-white
-                "
-              >
-                منوی کافه
-              </Link>
-
-
-            </div>
+              خرید از فروشگاه
+            </Link>
 
 
           </div>
 
 
 
-          {/* Image */}
-<div
-  className="
-  relative
-  h-[420px]
-  w-full
-  overflow-hidden
-  rounded-[3rem]
-  bg-sage/20
-  "
->
 
-<Image
-  src="/images/matcha-hero.jpg"
-  alt="Matcha Cafe"
-  width={700}
-  height={700}
-  priority
-  className="
-  h-full
-  w-full
-  object-cover
-  "
-/>
+          {/* Features */}
 
+          <div
+            className="
+            mt-8
+            max-w-2xl
+            rounded-3xl
+            border
+            border-white/20
+            bg-white/10
+            p-6
+            backdrop-blur-xl
+            "
+          >
+
+            <div
+              className="
+              grid
+              grid-cols-2
+              gap-6
+              text-white
+              "
+            >
+
+
+              <Feature
+                icon={<Leaf size={22}/>}
+                title="Matcha Ceremony"
+                desc="ماچای اصیل ژاپنی"
+              />
+
+
+              <Feature
+                icon={<ShieldCheck size={22}/>}
+                title="Quality"
+                desc="تضمین کیفیت"
+              />
+
+
+              <Feature
+                icon={<Coffee size={22}/>}
+                title="Fresh Coffee"
+                desc="قهوه تازه رُست"
+              />
+
+
+              <Feature
+                icon={<Truck size={22}/>}
+                title="Fast Delivery"
+                desc="ارسال سریع"
+              />
+
+
+            </div>
 
           </div>
 
 
         </div>
 
+
       </Container>
 
 
     </section>
+  );
+}
+
+
+
+
+function Feature({
+  icon,
+  title,
+  desc,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}) {
+
+  return (
+    <div className="flex gap-3">
+
+      <div
+        className="
+        flex
+        h-10
+        w-10
+        items-center
+        justify-center
+        rounded-xl
+        bg-white/20
+        "
+      >
+        {icon}
+      </div>
+
+
+      <div>
+
+        <p className="font-semibold">
+          {title}
+        </p>
+
+        <span className="text-xs text-white/60">
+          {desc}
+        </span>
+
+      </div>
+
+    </div>
   );
 }

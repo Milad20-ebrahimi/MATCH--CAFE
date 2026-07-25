@@ -29,273 +29,311 @@ const navLinks = [
     href: "/about",
   },
   {
-    label: "تماس با ما",
+    label: "تماس",
     href: "/contact",
   },
 ];
 
 
-export default function Navbar() {
+export default function Navbar(){
 
-  const [open, setOpen] = useState(false);
+  const [open,setOpen]=useState(false);
 
 
   return (
 
-    <header
-      className="
-      fixed
-      top-4
-      left-4
-      right-4
-      z-50
-      rounded-[3rem]
-      border
-      border-white/20
-      bg-white/20
-      backdrop-blur-xl
-      shadow-xl
-      "
-    >
-
-      <div
-        className="
-        mx-auto
-        flex
-        max-w-7xl
-        items-center
-        justify-between
-        px-6
-        py-3
-        "
-      >
+<header
+className="
+fixed
+top-4
+left-4
+right-4
+z-[999]
+rounded-[3rem]
+border
+border-white/20
+bg-white/20
+backdrop-blur-xl
+shadow-xl
+"
+>
 
 
-        {/* Logo */}
-
-        <Link
-          href="/"
-          className="
-          flex
-          items-center
-          gap-3
-          "
-        >
-
-          <div
-            className="
-            flex
-            h-11
-            w-11
-            items-center
-            justify-center
-            rounded-full
-            bg-forest
-            text-white
-            shadow-lg
-            "
-          >
-            <Leaf size={22}/>
-          </div>
+<div
+className="
+mx-auto
+flex
+max-w-7xl
+items-center
+justify-between
+px-6
+py-3
+"
+>
 
 
-          <div className="leading-tight">
+{/* Logo */}
 
-            <h1
-              className="
-              font-serif
-              text-xl
-              font-bold
-              text-forest
-              "
-            >
-              MATCH--CAFE
-            </h1>
+<Link
+href="/"
+className="
+flex
+items-center
+gap-3
+"
+>
 
 
-            <p
-              className="
-              text-xs
-              text-forest/60
-              "
-            >
-              Cafe & Matcha Store
-            </p>
+<div
+className="
+flex
+h-11
+w-11
+items-center
+justify-center
+rounded-full
+bg-[#355e3b]
+text-white
+shadow-lg
+"
+>
 
-          </div>
+<Leaf size={22}/>
 
-
-        </Link>
-
-
-
-        {/* Desktop Menu */}
-
-        <nav
-          className="
-          hidden
-          items-center
-          gap-8
-          md:flex
-          "
-        >
-
-          {
-            navLinks.map((item)=>(
-              <Link
-                key={item.href}
-                href={item.href}
-                className="
-                text-sm
-                font-medium
-                text-forest/80
-                transition
-                hover:text-amber
-                "
-              >
-                {item.label}
-              </Link>
-            ))
-          }
+</div>
 
 
-        </nav>
+<div>
+
+<h1
+className="
+font-serif
+text-xl
+font-bold
+text-white
+"
+>
+MATCH--CAFE
+</h1>
+
+<p
+className="
+text-xs
+text-white/70
+"
+>
+Cafe & Matcha Store
+</p>
+
+
+</div>
+
+
+</Link>
 
 
 
-        {/* Actions */}
-
-        <div
-          className="
-          flex
-          items-center
-          gap-3
-          "
-        >
 
 
-          <Link
-            href="/login"
-            className="
-            hidden
-            h-11
-            items-center
-            justify-center
-            rounded-full
-            bg-amber
-            px-4
-            text-white
-            md:flex
-            "
-          >
+{/* Desktop */}
 
-            <User size={18}/>
+<nav
+className="
+hidden
+items-center
+gap-8
+md:flex
+"
+>
 
-          </Link>
+{
+navLinks.map(item=>(
+
+<Link
+key={item.href}
+href={item.href}
+className="
+text-sm
+font-medium
+text-white/90
+transition
+hover:text-amber
+"
+>
+
+{item.label}
+
+</Link>
+
+))
+}
 
 
-
-          <Link
-            href="/cart"
-            className="
-            flex
-            h-11
-            w-11
-            items-center
-            justify-center
-            rounded-full
-            bg-forest
-            text-white
-            shadow-md
-            transition
-            hover:bg-amber
-            "
-          >
-
-            <ShoppingBag size={20}/>
-
-          </Link>
+</nav>
 
 
 
-          <button
-            onClick={()=>setOpen(!open)}
-            className="
-            flex
-            h-11
-            w-11
-            items-center
-            justify-center
-            rounded-full
-            bg-white
-            text-forest
-            md:hidden
-            "
-          >
-
-            {
-              open
-              ?
-              <X/>
-              :
-              <Menu/>
-            }
-
-          </button>
 
 
-        </div>
+{/* Actions */}
+
+<div
+className="
+flex
+items-center
+gap-3
+"
+>
 
 
-      </div>
+<Link
+href="/login"
+className="
+hidden
+h-11
+w-11
+items-center
+justify-center
+rounded-full
+bg-amber
+text-white
+md:flex
+"
+>
+
+<User size={18}/>
+
+</Link>
 
 
 
-      {/* Mobile */}
 
-      {
-        open && (
+<Link
+href="/reservation"
+className="
+hidden
+rounded-full
+bg-[#355e3b]
+px-5
+py-3
+text-sm
+font-medium
+text-white
+md:flex
+"
+>
 
-          <nav
-            className="
-            flex
-            flex-col
-            gap-2
-            rounded-b-[3rem]
-            bg-cream
-            px-5
-            py-4
-            md:hidden
-            "
-          >
+رزرو میز
 
-            {
-              navLinks.map((item)=>(
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={()=>setOpen(false)}
-                  className="
-                  rounded-xl
-                  px-4
-                  py-3
-                  text-forest
-                  hover:bg-cream-dark
-                  "
-                >
-                  {item.label}
-                </Link>
-              ))
-            }
+</Link>
 
 
-          </nav>
-
-        )
-      }
 
 
-    </header>
+<Link
+href="/cart"
+className="
+flex
+h-11
+w-11
+items-center
+justify-center
+rounded-full
+bg-amber
+text-white
+"
+>
+
+<ShoppingBag size={20}/>
+
+</Link>
+
+
+
+
+<button
+onClick={()=>setOpen(!open)}
+className="
+flex
+h-11
+w-11
+items-center
+justify-center
+rounded-full
+bg-white
+text-[#355e3b]
+md:hidden
+"
+>
+
+{
+open ? <X/> : <Menu/>
+}
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+{/* Mobile */}
+
+{
+open && (
+
+<nav
+className="
+rounded-b-[3rem]
+bg-[#f8f5ed]
+px-5
+py-4
+md:hidden
+"
+>
+
+{
+navLinks.map(item=>(
+
+<Link
+key={item.href}
+href={item.href}
+onClick={()=>setOpen(false)}
+className="
+block
+rounded-xl
+px-4
+py-3
+text-[#355e3b]
+hover:bg-orange-100
+"
+>
+
+{item.label}
+
+</Link>
+
+))
+}
+
+
+</nav>
+
+)
+
+}
+
+
+
+</header>
+
 
   );
+
 }
