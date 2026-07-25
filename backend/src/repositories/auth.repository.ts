@@ -1,8 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../database/index.js";
 import { users } from "../database/schema/user.schema.js";
-
-
 export async function findUserByEmail(email: string) {
   const user = await db
     .select()
@@ -12,7 +10,6 @@ export async function findUserByEmail(email: string) {
 
   return user[0] ?? null;
 }
-
 
 
 export async function createUser(data: {
