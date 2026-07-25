@@ -1,3 +1,4 @@
+import Footer from "@/components/shared/Footer";
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
@@ -39,13 +40,15 @@ export default function RootLayout({
       dir="rtl"
       className={`${vazirmatn.variable} antialiased`}
     >
-<body className="min-h-screen flex flex-col bg-white text-slate-900">
+<body className="min-h-full flex flex-col bg-white text-slate-900">
 
   <Navbar />
 
   <main className="flex-1">
     {children}
   </main>
+
+  <Footer />
 
 </body>
     </html>
