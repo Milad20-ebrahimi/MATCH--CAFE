@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { registerUser } from "../services/auth.service.js";
+import { registerUser, loginUser } from "../services/auth.service.js";
 
 
 export const register = async (
@@ -38,9 +38,33 @@ export const login = async (
   res: Response
 ) => {
 
-  res.json({
-    message: "Login endpoint"
-  });
+  try {
+
+    const { email, password } = req.body;
+
+
+    const result = await loginUser(
+      email,
+      password
+    );
+
+
+    return res.json({
+      message: "Login successful",
+      ...result,
+    });
+
+
+  } catch (error) {
+
+    return res.status(401).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Login failed",
+    });
+
+  }
 
 };
 

@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { generateToken } from "../config/jwt.js";
 import {
   findUserByEmail,
   createUser,
@@ -50,5 +51,46 @@ export async function registerUser(
     name: user.name,
     email: user.email,
     role: user.role,
+  };
+}
+export async function loginUser(
+  email: string,
+  password: string
+) {
+
+  const user = await findUserByEmail(email);
+
+
+  if (!user) {
+    throw new Error("Invalid email or password");
+  }
+
+
+  const passwordMatch = await bcrypt.compare(
+    password,
+    user.password
+  );
+
+
+  if (!passwordMatch) {
+    throw new Error("Invalid email or password");
+  }
+
+
+  const token = generateToken({
+    id: user.id,
+    email: user.email,
+    role: user.role,
+  });
+
+
+  return {
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
+    token,
   };
 }
