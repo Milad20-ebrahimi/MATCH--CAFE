@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 
-const JWT_SECRET =
+export const JWT_SECRET =
   process.env.JWT_SECRET as string;
 
 

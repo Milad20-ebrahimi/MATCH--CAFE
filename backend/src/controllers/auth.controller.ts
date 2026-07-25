@@ -1,5 +1,10 @@
 import type { Request, Response } from "express";
-import { registerUser, loginUser } from "../services/auth.service.js";
+import type { AuthRequest } from "../middleware/auth.middleware.js";
+
+import {
+  registerUser,
+  loginUser,
+} from "../services/auth.service.js";
 
 
 export const register = async (
@@ -7,30 +12,16 @@ export const register = async (
   res: Response
 ) => {
 
-  try {
+  const user = await registerUser(
+    req.body
+  );
 
-    const user = await registerUser(req.body);
-
-
-    return res.status(201).json({
-      message: "User created successfully",
-      user,
-    });
-
-
-  } catch (error) {
-
-    return res.status(400).json({
-      message:
-        error instanceof Error
-          ? error.message
-          : "Something went wrong",
-    });
-
-  }
+  res.json({
+    message: "User created successfully",
+    user,
+  });
 
 };
-
 
 
 export const login = async (
@@ -38,45 +29,30 @@ export const login = async (
   res: Response
 ) => {
 
-  try {
-
-    const { email, password } = req.body;
-
-
-    const result = await loginUser(
-      email,
-      password
-    );
+  const {
+    email,
+    password,
+  } = req.body;
 
 
-    return res.json({
-      message: "Login successful",
-      ...result,
-    });
+  const result = await loginUser(
+    email,
+    password
+  );
 
 
-  } catch (error) {
-
-    return res.status(401).json({
-      message:
-        error instanceof Error
-          ? error.message
-          : "Login failed",
-    });
-
-  }
+  res.json(result);
 
 };
 
 
-
 export const me = async (
-  req: Request,
+  req: AuthRequest,
   res: Response
 ) => {
 
   res.json({
-    message: "Current user"
+    user: req.user,
   });
 
 };

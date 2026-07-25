@@ -1,5 +1,6 @@
 import "./config/env.js";
-import app from "./app.js";
+
+const { default: app } = await import("./app.js");
 
 
 const PORT = 4000;
