@@ -5,3 +5,5 @@ export * from "./brand.schema.js";
 export * from "./product-image.schema.js";
 export * from "./cart.schema.js";
 export * from "./cart-item.schema.js";
+export * from "./order.schema.js";
+export * from "./order-item.schema.js";
