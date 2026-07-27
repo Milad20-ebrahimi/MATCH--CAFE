@@ -109,3 +109,18 @@ export async function deleteCartItem(
   return item[0] ?? null;
 
 }
+export async function deleteCartItemsByCartId(
+  cartId: string
+) {
+
+  const items = await db
+    .delete(cartItems)
+    .where(
+      eq(cartItems.cartId, cartId)
+    )
+    .returning();
+
+
+  return items;
+
+}
