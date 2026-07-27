@@ -28,6 +28,15 @@ export const createProductSchema = z.object({
     .url("Invalid image url")
     .nullable()
     .optional(),
+
+  categoryId: z
+    .string()
+    .uuid("Invalid category id"),
+
+  brandId: z
+    .string()
+    .uuid("Invalid brand id"),
 });
+
 export const updateProductSchema =
   createProductSchema.partial();
