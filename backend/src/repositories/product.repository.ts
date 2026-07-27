@@ -1,7 +1,9 @@
 import { eq } from "drizzle-orm";
-
 import { db } from "../database/index.js";
 import { products } from "../database/schema/product.schema.js";
+import { categories } from "../database/schema/category.schema.js";
+import { brands } from "../database/schema/brand.schema.js";
+import { productImages } from "../database/schema/product-image.schema.js";
 type CreateProductInput = {
   name: string;
   slug: string;
@@ -9,6 +11,9 @@ type CreateProductInput = {
   price: number;
   stock: number;
   imageUrl: string | null;
+
+  categoryId: string;
+  brandId: string;
 };
 type UpdateProductInput = {
   name?: string;
@@ -17,9 +22,13 @@ type UpdateProductInput = {
   price?: number;
   stock?: number;
   imageUrl?: string | null;
+
+  categoryId?: string;
+  brandId?: string;
 };
 export async function findAllProducts() {
-  return await db
+
+  const result = await db
     .select({
       id: products.id,
       name: products.name,
@@ -27,14 +36,86 @@ export async function findAllProducts() {
       price: products.price,
       stock: products.stock,
       imageUrl: products.imageUrl,
-    })
-    .from(products);
-}
 
+      category: {
+        id: categories.id,
+        name: categories.name,
+        slug: categories.slug,
+      },
+
+      brand: {
+        id: brands.id,
+        name: brands.name,
+        slug: brands.slug,
+      },
+
+      images: {
+        id: productImages.id,
+        imageUrl: productImages.imageUrl,
+        isPrimary: productImages.isPrimary,
+        sortOrder: productImages.sortOrder,
+      },
+
+    })
+    .from(products)
+    .leftJoin(
+      categories,
+      eq(products.categoryId, categories.id)
+    )
+    .leftJoin(
+      brands,
+      eq(products.brandId, brands.id)
+    )
+    .leftJoin(
+      productImages,
+      eq(products.id, productImages.productId)
+    );
+
+
+  const productsMap = new Map();
+
+
+  for (const row of result) {
+
+    if (!productsMap.has(row.id)) {
+
+      productsMap.set(row.id, {
+        id: row.id,
+        name: row.name,
+        slug: row.slug,
+        price: row.price,
+        stock: row.stock,
+        imageUrl: row.imageUrl,
+
+        category: row.category,
+        brand: row.brand,
+
+        images: [],
+      });
+
+    }
+
+
+    if (row.images?.id) {
+
+      productsMap
+        .get(row.id)
+        .images
+        .push(row.images);
+
+    }
+
+  }
+
+
+  return Array.from(productsMap.values());
+
+}
 export async function findProductById(
   id: string
 ) {
-  const product = await db
+
+  const result = await db
     .select({
       id: products.id,
       name: products.name,
@@ -43,12 +124,85 @@ export async function findProductById(
       price: products.price,
       stock: products.stock,
       imageUrl: products.imageUrl,
+
+      category: {
+        id: categories.id,
+        name: categories.name,
+        slug: categories.slug,
+      },
+
+      brand: {
+        id: brands.id,
+        name: brands.name,
+        slug: brands.slug,
+      },
+
+      images: {
+        id: productImages.id,
+        imageUrl: productImages.imageUrl,
+        isPrimary: productImages.isPrimary,
+        sortOrder: productImages.sortOrder,
+      },
+
     })
     .from(products)
-    .where(eq(products.id, id))
-    .limit(1);
+    .leftJoin(
+      categories,
+      eq(products.categoryId, categories.id)
+    )
+    .leftJoin(
+      brands,
+      eq(products.brandId, brands.id)
+    )
+    .leftJoin(
+      productImages,
+      eq(products.id, productImages.productId)
+    )
+    .where(
+      eq(products.id, id)
+    );
 
-  return product[0] ?? null;
+
+  if (!result.length) {
+    return null;
+  }
+
+
+  const product = {
+    id: result[0].id,
+    name: result[0].name,
+    slug: result[0].slug,
+    description: result[0].description,
+    price: result[0].price,
+    stock: result[0].stock,
+    imageUrl: result[0].imageUrl,
+
+    category: result[0].category,
+    brand: result[0].brand,
+
+    images: Array<{
+  id: string;
+  imageUrl: string;
+  isPrimary: boolean;
+  sortOrder: number;
+}>(),
+  };
+
+
+  for (const row of result) {
+
+    if (row.images?.id) {
+
+      product.images.push(
+        row.images
+      );
+
+    }
+
+  }
+
+
+  return product;
 }
 export async function createProduct(
   data: CreateProductInput

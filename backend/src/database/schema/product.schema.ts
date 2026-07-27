@@ -6,7 +6,8 @@ import {
   timestamp,
   text,
 } from "drizzle-orm/pg-core";
-
+import { categories } from "./category.schema.js";
+import { brands } from "./brand.schema.js";
 
 export const products = pgTable("products", {
 
@@ -37,6 +38,13 @@ export const products = pgTable("products", {
   imageUrl: varchar("image_url", {
     length: 500,
   }),
+  categoryId: uuid("category_id")
+  .notNull()
+  .references(() => categories.id),
+
+brandId: uuid("brand_id")
+  .notNull()
+  .references(() => brands.id),
 
   createdAt: timestamp("created_at")
     .defaultNow()
