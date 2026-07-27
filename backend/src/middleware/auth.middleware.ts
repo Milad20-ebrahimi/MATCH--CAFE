@@ -1,9 +1,4 @@
-import type {
-  Request,
-  Response,
-  NextFunction,
-} from "express";
-
+import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/jwt.js";
 
@@ -61,11 +56,12 @@ export function authMiddleware(
     next();
 
 
-  } catch {
+  } catch (error) {
 
     return res.status(401).json({
       message: "Invalid or expired token",
     });
 
   }
+
 }
