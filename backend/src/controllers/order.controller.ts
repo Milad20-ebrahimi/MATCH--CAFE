@@ -14,30 +14,29 @@ import {
 } from "../services/order.service.js";
 
 
-
-export const createOrder = async (
+export async function createOrder(
   req: AuthRequest,
   res: Response
-) => {
+) {
+
+  const {
+    discountCode,
+  } = req.body;
 
 
-  const userId = req.user!.id;
+  const order =
+    await checkout(
+      req.user!.id,
+      discountCode
+    );
 
 
-  const order = await checkout(
-    userId
-  );
-
-
-  return res.status(201).json({
-
+  res.json({
     message:
       "Order created successfully",
 
     order,
-
   });
-
 
 };
 export const getOrders = async (
