@@ -3,6 +3,10 @@ import {
   findOrderItems,
 } from "../repositories/order-item.repository.js";
 import {
+  increaseUsage,
+  calculateDiscount,
+} from "./discount.service.js";
+import {
   getUserCart,
 } from "./cart.service.js";
 
@@ -29,13 +33,37 @@ import {
   findOrderById,
 } from "../repositories/order.repository.js";
 export async function checkout(
-  userId: string
+  userId: string,
+  discountCode?: string
+
 ) {
 
   const cart = await getUserCart(
     userId
   );
+let finalAmount =
+  cart.summary.subtotal;
 
+let appliedDiscount = null;
+
+
+if (discountCode) {
+
+  const discount =
+    await calculateDiscount(
+      discountCode,
+      cart.summary.subtotal
+    );
+
+
+  finalAmount =
+    discount.finalAmount;
+
+
+  appliedDiscount =
+    discount.discount;
+
+}
 
   if (
     cart.items.length === 0
@@ -67,8 +95,8 @@ export async function checkout(
         {
           userId,
 
-          totalAmount:
-            cart.summary.subtotal,
+         totalAmount:
+         finalAmount
         },
         tx
       );
@@ -100,11 +128,19 @@ export async function checkout(
       await createOrderPayment(
   {
     orderId: order.id,
-    amount: cart.summary.subtotal,
+    amount: finalAmount,
     method: "online",
   },
   tx
 );
+if (appliedDiscount) {
+
+await increaseUsage(
+  appliedDiscount.id,
+  tx
+);
+
+}
 
       await deleteCartItemsByCartId(
         cart.cart.id,
