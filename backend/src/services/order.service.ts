@@ -15,8 +15,9 @@ import {
 import {
   createManyOrderItems,
 } from "../repositories/order-item.repository.js";
-
-
+import {
+  createOrderPayment,
+} from "./payment.service.js";
 import {
   deleteCartItemsByCartId,
 } from "../repositories/cart-item.repository.js";
@@ -96,7 +97,11 @@ export async function checkout(
         orderItems,
         tx
       );
-
+      await createOrderPayment({
+        orderId: order.id,
+        amount: cart.summary.subtotal,
+        method: "online",
+        });
 
       await deleteCartItemsByCartId(
         cart.cart.id,

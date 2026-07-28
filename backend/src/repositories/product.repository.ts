@@ -4,6 +4,7 @@ import { products } from "../database/schema/product.schema.js";
 import { categories } from "../database/schema/category.schema.js";
 import { brands } from "../database/schema/brand.schema.js";
 import { productImages } from "../database/schema/product-image.schema.js";
+import { sql} from "drizzle-orm";
 import type {
   NodePgDatabase,
 } from "drizzle-orm/node-postgres";
@@ -311,5 +312,29 @@ export async function decreaseProductStock(
 
 
   return updatedProduct[0];
+
+}
+export async function increaseProductStock(
+  productId: string,
+  quantity: number
+) {
+
+  const product =
+    await db
+      .update(products)
+      .set({
+        stock:
+          sql`${products.stock} + ${quantity}`,
+      })
+      .where(
+        eq(
+          products.id,
+          productId
+        )
+      )
+      .returning();
+
+
+  return product[0] ?? null;
 
 }
