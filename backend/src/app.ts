@@ -14,7 +14,7 @@ import brandRoute from "./routes/brand.route.js";
 import productImageRoute from "./routes/product-image.route.js";
 import inventoryRoute from "./routes/inventory.route.js";
 import adminOrderRoute from "./routes/admin-order.route.js";
-
+import adminPaymentRoute from "./routes/admin-payment.route.js";
 import { errorMiddleware } from "./middleware/error.middleware.js";
 
 
@@ -38,6 +38,7 @@ app.use("/api/v1/payments", paymentRoute);
 app.use("/api/v1/reservations", reservationRoute);
 app.use("/api/v1/brands", brandRoute);
 app.use("/api/v1/admin/orders",adminOrderRoute);
+app.use("/api/v1/admin/payments",adminPaymentRoute);
 app.use("/api/v1", productImageRoute);
 app.use("/api/v1/inventory",inventoryRoute);
 app.use(errorMiddleware);

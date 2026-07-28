@@ -97,11 +97,14 @@ export async function checkout(
         orderItems,
         tx
       );
-      await createOrderPayment({
-        orderId: order.id,
-        amount: cart.summary.subtotal,
-        method: "online",
-        });
+      await createOrderPayment(
+  {
+    orderId: order.id,
+    amount: cart.summary.subtotal,
+    method: "online",
+  },
+  tx
+);
 
       await deleteCartItemsByCartId(
         cart.cart.id,
