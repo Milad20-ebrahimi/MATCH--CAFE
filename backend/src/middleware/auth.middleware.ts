@@ -6,8 +6,8 @@ import { JWT_SECRET } from "../config/jwt.js";
 export interface AuthRequest extends Request {
   user?: {
     id: string;
-    email: string;
-    role: string;
+    email?: string;
+    role?: string;
   };
 }
 
