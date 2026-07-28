@@ -6,29 +6,23 @@ import {
 
 
 import {
-  getPayment,
-  confirmPayment,
-} from "../controllers/payment.controller.js";
+  addInventory,
+  removeInventory,
+} from "../controllers/inventory.controller.js";
 
 
 const router = Router();
 
 
-
-router.get(
-  "/order/:orderId",
+router.post(
+  "/add",
   authMiddleware,
-  getPayment
+  addInventory
 );
-
-
-
-router.patch(
-  "/:id/pay",
+router.post(
+  "/remove",
   authMiddleware,
-  confirmPayment
+  removeInventory
 );
-
-
 
 export default router;

@@ -12,6 +12,7 @@ import reservationRoute from "./routes/reservation.route.js";
 import healthRoute from "./routes/health.route.js";
 import brandRoute from "./routes/brand.route.js";
 import productImageRoute from "./routes/product-image.route.js";
+import inventoryRoute from "./routes/inventory.route.js";
 import { errorMiddleware } from "./middleware/error.middleware.js";
 
 
@@ -35,6 +36,7 @@ app.use("/api/v1/payments", paymentRoute);
 app.use("/api/v1/reservations", reservationRoute);
 app.use("/api/v1/brands", brandRoute);
 app.use("/api/v1", productImageRoute);
+app.use("/api/v1/inventory",inventoryRoute);
 app.use(errorMiddleware);
 
 export default app;

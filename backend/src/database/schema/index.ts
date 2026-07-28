@@ -7,3 +7,5 @@ export * from "./cart.schema.js";
 export * from "./cart-item.schema.js";
 export * from "./order.schema.js";
 export * from "./order-item.schema.js";
+export * from "./payment.schema.js";
+export * from "./inventory.schema.js";
