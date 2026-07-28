@@ -1,9 +1,11 @@
 import { eq, and } from "drizzle-orm";
-
+import type {
+  NodePgDatabase,
+} from "drizzle-orm/node-postgres";
 import { db } from "../database/index.js";
 import { cartItems } from "../database/schema/cart-item.schema.js";
 import { products } from "../database/schema/product.schema.js";
-
+type Database = NodePgDatabase<any>;
 export async function findCartItems(
   cartId: string
 ) {
@@ -110,10 +112,11 @@ export async function deleteCartItem(
 
 }
 export async function deleteCartItemsByCartId(
-  cartId: string
+  cartId: string,
+  tx: Database = db
 ) {
 
-  const items = await db
+  const items = await tx
     .delete(cartItems)
     .where(
       eq(cartItems.cartId, cartId)

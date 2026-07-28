@@ -1,3 +1,7 @@
+import { db } from "../database/index.js";
+import {
+  findOrderItems,
+} from "../repositories/order-item.repository.js";
 import {
   getUserCart,
 } from "./cart.service.js";
@@ -16,13 +20,16 @@ import {
 import {
   deleteCartItemsByCartId,
 } from "../repositories/cart-item.repository.js";
-
-
-
+import {
+  decreaseProductStock,
+} from "../repositories/product.repository.js";
+import {
+  findUserOrders,
+  findOrderById,
+} from "../repositories/order.repository.js";
 export async function checkout(
   userId: string
 ) {
-
 
   const cart = await getUserCart(
     userId
@@ -40,50 +47,102 @@ export async function checkout(
   }
 
 
-
-  const order = await createOrder({
-
-    userId,
-
-    totalAmount:
-      cart.summary.subtotal,
-
-  });
+  return await db.transaction(
+    async (tx) => {
 
 
+      for (const item of cart.items) {
 
-  const orderItems =
-    cart.items.map(
-      (item) => ({
-
-        orderId: order.id,
-
-        productId:
+        await decreaseProductStock(
           item.product!.id,
-
-        quantity:
           item.quantity,
+          tx
+        );
 
-        price:
-          item.product!.price,
-
-      })
-    );
+      }
 
 
+      const order = await createOrder(
+        {
+          userId,
 
-  await createManyOrderItems(
-    orderItems
+          totalAmount:
+            cart.summary.subtotal,
+        },
+        tx
+      );
+
+
+      const orderItems =
+        cart.items.map(
+          (item) => ({
+
+            orderId: order.id,
+
+            productId:
+              item.product!.id,
+
+            quantity:
+              item.quantity,
+
+            price:
+              item.product!.price,
+
+          })
+        );
+
+
+      await createManyOrderItems(
+        orderItems,
+        tx
+      );
+
+
+      await deleteCartItemsByCartId(
+        cart.cart.id,
+        tx
+      );
+
+
+      return order;
+
+    }
+  );
+
+}
+export async function getUserOrders(
+  userId: string
+) {
+
+  return await findUserOrders(
+    userId
+  );
+
+}
+
+
+export async function getOrderById(
+  id: string
+) {
+
+  const order = await findOrderById(
+    id
   );
 
 
+  if (!order) {
+    return null;
+  }
 
-  await deleteCartItemsByCartId(
-    cart.cart.id
+
+  const items = await findOrderItems(
+    id
   );
 
 
-
-  return order;
+  return {
+    order,
+    items,
+  };
 
 }
