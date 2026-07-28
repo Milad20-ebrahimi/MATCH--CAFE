@@ -1,4 +1,7 @@
 import { Router } from "express";
+import {
+  requireRole,
+} from "../middleware/role.middleware.js";
 
 import {
   authMiddleware,
@@ -12,16 +15,18 @@ import {
 
 
 const router = Router();
-
-
 router.post(
   "/add",
-  authMiddleware,
+ authMiddleware,
+requireRole("ADMIN"),
   addInventory
 );
+
+
 router.post(
   "/remove",
-  authMiddleware,
+ authMiddleware,
+requireRole("ADMIN"),
   removeInventory
 );
 
