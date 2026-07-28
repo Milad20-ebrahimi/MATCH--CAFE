@@ -17,6 +17,7 @@ export async function createUser(data: {
   email: string;
   password: string;
   phone?: string;
+  role?: "USER" | "ADMIN" | "STAFF";
 }) {
 
   const [user] = await db
@@ -26,7 +27,8 @@ export async function createUser(data: {
       email: data.email,
       password: data.password,
       phone: data.phone,
-    })
+      role: data.role ?? "USER",
+    })  
     .returning();
 
   return user;
