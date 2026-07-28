@@ -2,16 +2,19 @@ import { eq } from "drizzle-orm";
 
 import { db } from "../database/index.js";
 import { orders } from "../database/schema/order.schema.js";
-
-
+import type {
+  NodePgDatabase,
+} from "drizzle-orm/node-postgres";
+type Database = NodePgDatabase<any>;
 export async function createOrder(
   data: {
     userId: string;
     totalAmount: number;
-  }
+  },
+  tx: Database = db
 ) {
 
-  const order = await db
+  const order = await tx
     .insert(orders)
     .values({
       userId: data.userId,

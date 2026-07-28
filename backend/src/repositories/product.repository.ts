@@ -4,6 +4,10 @@ import { products } from "../database/schema/product.schema.js";
 import { categories } from "../database/schema/category.schema.js";
 import { brands } from "../database/schema/brand.schema.js";
 import { productImages } from "../database/schema/product-image.schema.js";
+import type {
+  NodePgDatabase,
+} from "drizzle-orm/node-postgres";
+type Database = NodePgDatabase<any>;
 type CreateProductInput = {
   name: string;
   slug: string;
@@ -258,4 +262,54 @@ export async function deleteProductById(
     });
 
   return product[0] ?? null;
+}
+export async function decreaseProductStock(
+  productId: string,
+  quantity: number,
+  tx: Database = db
+) {
+
+  const product = await tx
+    .select({
+      id: products.id,
+      stock: products.stock,
+    })
+    .from(products)
+    .where(
+      eq(products.id, productId)
+    )
+    .limit(1);
+
+
+  const currentProduct = product[0];
+
+
+  if (!currentProduct) {
+    throw new Error(
+      "Product not found"
+    );
+  }
+
+
+  if (currentProduct.stock < quantity) {
+    throw new Error(
+      "Not enough stock"
+    );
+  }
+
+
+  const updatedProduct = await tx
+    .update(products)
+    .set({
+      stock:
+        currentProduct.stock - quantity,
+    })
+    .where(
+      eq(products.id, productId)
+    )
+    .returning();
+
+
+  return updatedProduct[0];
+
 }
