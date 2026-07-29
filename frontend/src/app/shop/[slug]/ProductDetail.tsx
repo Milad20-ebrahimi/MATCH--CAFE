@@ -5,7 +5,8 @@ import Image from "next/image";
 
 import Container from "@/components/shared/Container";
 import AddToCartButton from "@/features/products/components/AddToCartButton";
-
+import ProductCard from "@/components/ui/cards/product/ProductCard";
+import useProducts from "@/features/products/hooks/useProducts";
 import type { Product } from "@/types/product";
 
 
@@ -20,7 +21,16 @@ export default function ProductDetail({
 
 
   const [quantity,setQuantity] = useState(1);
+const { products } = useProducts();
 
+
+const relatedProducts = products
+  .filter(
+    (item) =>
+      item.id !== product.id &&
+      item.category === product.category
+  )
+  .slice(0,4);
 
 
   return (
@@ -167,11 +177,6 @@ export default function ProductDetail({
 
             </div>
 
-
-
-
-
-
             <p
               className="
               mt-8
@@ -186,12 +191,6 @@ export default function ProductDetail({
               آرام و متفاوت.
 
             </p>
-
-
-
-
-
-
 
             {/* PRICE */}
 
@@ -220,12 +219,6 @@ export default function ProductDetail({
 
 
             </div>
-
-
-
-
-
-
 
             {/* FEATURES */}
 
@@ -268,13 +261,6 @@ export default function ProductDetail({
 
 
             </div>
-
-
-
-
-
-
-
             {/* QUANTITY */}
 
 
@@ -299,7 +285,7 @@ export default function ProductDetail({
                 text-xl
                 "
               >
-                −
+
               </button>
 
 
@@ -332,18 +318,163 @@ export default function ProductDetail({
 
             </div>
 
-
-
-
-
-
             <div className="mt-8">
 
               <AddToCartButton
                 product={product}
                 quantity={quantity}
               />
+                {(product.description || product.features) && (
 
+  <div
+    className="
+    mt-12
+    space-y-6
+    "
+  >
+
+
+    {product.shortDescription && (
+
+      <div
+        className="
+        rounded-[32px]
+        border
+        border-[#b9d19a]/30
+        bg-white/70
+        p-8
+        backdrop-blur-xl
+        "
+      >
+
+        <p
+          className="
+          text-sm
+          leading-8
+          text-[#0d1a12]/70
+          "
+        >
+          {product.shortDescription}
+        </p>
+
+      </div>
+
+    )}
+
+
+
+    {product.description && (
+
+      <div
+        className="
+        rounded-[32px]
+        border
+        border-[#0d1a12]/10
+        bg-white/60
+        p-8
+        backdrop-blur-xl
+        "
+      >
+
+        <h3
+          className="
+          text-xl
+          font-light
+          text-[#0d1a12]
+          "
+        >
+          معرفی محصول
+        </h3>
+
+
+        <p
+          className="
+          mt-5
+          text-sm
+          leading-9
+          text-[#0d1a12]/60
+          "
+        >
+          {product.description}
+        </p>
+
+
+      </div>
+
+    )}
+
+
+
+
+    {product.features && (
+
+      <div
+        className="
+        rounded-[32px]
+        border
+        border-[#b9d19a]/30
+        bg-[#fffdf8]
+        p-8
+        "
+      >
+
+        <h3
+          className="
+          text-xl
+          font-light
+          text-[#0d1a12]
+          "
+        >
+          ویژگی‌ها
+        </h3>
+
+
+        <ul
+          className="
+          mt-5
+          space-y-3
+          text-sm
+          text-[#0d1a12]/70
+          "
+        >
+
+          {product.features.map((feature)=>(
+
+            <li
+              key={feature}
+              className="
+              flex
+              items-center
+              gap-3
+              "
+            >
+
+              <span
+                className="
+                h-2
+                w-2
+                rounded-full
+                bg-[#355e3b]
+                "
+              />
+
+              {feature}
+
+            </li>
+
+          ))}
+
+        </ul>
+
+
+      </div>
+
+    )}
+
+
+  </div>
+
+)}
             </div>
 
 
