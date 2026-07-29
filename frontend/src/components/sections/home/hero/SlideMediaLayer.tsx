@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import type { SlideMedia } from './types';
-
+import Image from "next/image";
 interface SlideMediaLayerProps {
   domId: string;
   media: SlideMedia;
@@ -42,17 +42,30 @@ const SlideMediaLayer: React.FC<SlideMediaLayerProps> = ({
     return <div id={domId} className="absolute inset-0 bg-stone-900" />;
   }
 
-  if (media.type === 'image') {
-    return (
-      <div
-        id={domId}
-        className={`h-full w-full bg-stone-800 bg-cover bg-center ${
-          isActive ? 'mapa-kenburns' : ''
-        }`}
-        style={{ backgroundImage: `url(${media.src})` }}
+if (media.type === 'image') {
+  return (
+    <div
+      id={domId}
+      className="relative h-full w-full bg-stone-800"
+    >
+      <Image
+        src={media.src}
+        alt="Cafe hero"
+        fill
+        priority={isActive}
+        sizes="100vw"
+        className={`
+          object-cover
+          ${
+            isActive
+              ? "mapa-kenburns"
+              : ""
+          }
+        `}
       />
-    );
-  }
+    </div>
+  );
+}
 
   if (videoFailed && media.poster) {
     return (

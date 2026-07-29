@@ -103,26 +103,27 @@ const HeroSlider: React.FC<HeroSliderProps> = ({
   /* پخش و توقف ویدئوها */
   useEffect(() => {
 
-    videoRefs.current.forEach((video, index) => {
+  videoRefs.current.forEach((video, index) => {
 
-      if (!video) return;
+    if (!video) return;
 
-      if (index === activeIndex) {
+    if (index === activeIndex) {
 
-        video.currentTime = 0;
+      video.currentTime = 0;
 
-        video.play().catch(() => undefined);
+      video.muted = true;
 
-      } else {
+      video.play().catch(() => undefined);
 
-        video.pause();
+    } else {
 
-      }
+      video.pause();
 
-    });
+    }
 
-  }, [activeIndex]);
+  });
 
+}, [activeIndex]);
 
 
   /* اسلاید خودکار */
@@ -590,9 +591,13 @@ const HeroSlider: React.FC<HeroSliderProps> = ({
     "
   >
 
-    <div
-      key={activeSlide.id}
-      className="max-w-xl">
+<div
+  key={activeSlide.id}
+  className="
+    max-w-xl
+    animate-heroContent
+  "
+>
 <span
   className="
   inline-flex

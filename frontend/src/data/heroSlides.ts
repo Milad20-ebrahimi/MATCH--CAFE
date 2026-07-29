@@ -5,12 +5,10 @@ export const heroSlides: HeroSlide[] = [
 
   {
     id: "slide-1",
-
-    media: {
-      type: "image",
-      src: "/11.jpg",
-    },
-
+media: {
+  type: "image",
+  src: "/images/matcha-hero-2.JPG",
+},
     eyebrow: "فصل تازه",
 
     title:
@@ -39,7 +37,7 @@ export const heroSlides: HeroSlide[] = [
     media: {
       type: "video",
       src: "/112.mp4",
-      poster: "/hero/mapa-2.jpg",
+poster: "/images/cafe-interior.jpg",
     },
 
     eyebrow:
