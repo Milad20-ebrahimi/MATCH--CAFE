@@ -14,3 +14,4 @@ export * from "./review.schema.js";
 export * from "./wishlist-item.schema.js";
 export * from "./cafe-table.schema.js";
 export * from "./reservation.schema.js";
+export * from "./address.schema.js";
