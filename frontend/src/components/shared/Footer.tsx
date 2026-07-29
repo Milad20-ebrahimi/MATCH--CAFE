@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 
 import {
-  Instagram,
-  Youtube,
+  Camera,
+  Play,
   Send,
   MapPin,
   Phone,
@@ -405,7 +405,7 @@ export default function Footer() {
 
               <SocialButton label="Instagram">
 
-                <Instagram size={18}/>
+                <Camera />
 
               </SocialButton>
 
@@ -413,7 +413,7 @@ export default function Footer() {
 
               <SocialButton label="Youtube">
 
-                <Youtube size={18}/>
+                <Play />
 
               </SocialButton>
 
