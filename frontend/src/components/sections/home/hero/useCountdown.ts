@@ -14,13 +14,20 @@ interface CountdownParts {
  * شمارش معکوس تا یک تاریخ مشخص. هر ثانیه به‌روزرسانی می‌شود.
  */
 export function useCountdown(endsAt?: string): CountdownParts {
-  const [now, setNow] = useState<number>(() => Date.now());
+const [now, setNow] = useState<number>(0);
 
-  useEffect(() => {
-    if (!endsAt) return undefined;
-    const interval = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(interval);
-  }, [endsAt]);
+useEffect(() => {
+  setNow(Date.now());
+
+  if (!endsAt) return;
+
+  const interval = setInterval(() => {
+    setNow(Date.now());
+  }, 1000);
+
+  return () => clearInterval(interval);
+
+}, [endsAt]);
 
   if (!endsAt) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0, isExpired: true };
