@@ -6,22 +6,43 @@ export interface Product {
 
   slug:string;
 
-  description?:string;
-
   price:number;
 
   oldPrice?:number;
-
-  rating:number;
 
   image:string;
 
   category:string;
 
+  rating:number;
+
   badge?:string;
 
-  stock?:number;
 
-  createdAt?:string;
+  // SEO
+  shortDescription?:string;
+
+  description?:string;
+
+
+  // ویژگی‌ها
+  features?:string[];
+
+
+  // نظرات
+  reviews?: Review[];
+
+}
+export interface Review {
+
+  id:string;
+
+  name:string;
+
+  comment:string;
+
+  createdAt:string;
+
+  rating:number;
 
 }

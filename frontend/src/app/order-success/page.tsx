@@ -1,136 +1,265 @@
 "use client";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
 import Container from "@/components/shared/Container";
+
 import type { Order } from "@/features/orders/types";
+
+
 export default function OrderSuccessPage() {
+
   const [order,setOrder] = useState<Order | null>(null);
+
+
   useEffect(()=>{
+
     const data = localStorage.getItem(
       "last-order"
     );
+
     if(data){
+
       setOrder(
         JSON.parse(data)
       );
+
     }
+
   },[]);
+
+
+
   return (
-    <main className="min-h-screen bg-[#f8f5ed] py-32">
+
+    <main
+      className="
+      min-h-screen
+      bg-[#f8f5ed]
+      py-32
+      "
+    >
+
       <Container>
+
+
         <div
           className="
           mx-auto
-          max-w-2xl
-          rounded-[2rem]
-          bg-white
-          p-10
-          shadow-xl
+          max-w-3xl
+          rounded-[40px]
+          border
+          border-[#b9d19a]/40
+          bg-[#fffdf8]
+          p-8
+          shadow-[0_30px_80px_-40px_rgba(13,26,18,0.25)]
+          sm:p-12
           "
         >
+
+
+
+          {/* Success Icon */}
+
           <div
             className="
             mx-auto
             flex
-            h-20
-            w-20
+            h-24
+            w-24
             items-center
             justify-center
             rounded-full
-            bg-[#355e3b]
-            text-4xl
-            text-white
+            bg-[#0d1a12]
+            text-5xl
+            text-[#b9d19a]
+            shadow-lg
             "
           >
             ✓
           </div>
-          <h1
-            className="
-            mt-8
-            text-center
-            font-serif
-            text-3xl
-            font-bold
-            text-[#203c27]
-            "
-          >
-            سفارش شما ثبت شد
-          </h1>
-          <p
-            className="
-            mt-4
-            text-center
-            leading-8
-            text-slate-600
-            "
-          >
-            از خرید شما ممنونیم.
-            سفارش شما با موفقیت ثبت شد.
-          </p>
+
+
+
+
+          <div className="mt-8 text-center">
+
+
+            <p
+              className="
+              text-xs
+              tracking-[0.35em]
+              text-[#355e3b]
+              "
+            >
+              ORDER SUCCESS
+            </p>
+
+
+            <h1
+              className="
+              mt-4
+              font-serif
+              text-4xl
+              font-light
+              text-[#0d1a12]
+              "
+            >
+              سفارش شما ثبت شد
+            </h1>
+
+
+            <p
+              className="
+              mt-5
+              leading-8
+              text-[#0d1a12]/60
+              "
+            >
+              ممنون از انتخاب شما.
+              سفارش شما با موفقیت ثبت و آماده پردازش است.
+            </p>
+
+
+          </div>
+
+
+
+
+
           {
             order && (
 
               <div
                 className="
-                mt-10
-                rounded-3xl
+                mt-12
+                rounded-[32px]
+                border
+                border-[#b9d19a]/40
                 bg-[#f8f5ed]
-                p-6
+                p-8
                 "
               >
+
+
                 <div
                   className="
                   flex
                   justify-between
+                  text-sm
                   "
                 >
-                  <span>
-                    شماره سفارش:
+
+                  <span className="text-[#0d1a12]/60">
+                    شماره سفارش
                   </span>
-                  <strong className="text-[#355e3b]">
+
+
+                  <strong
+                    className="
+                    text-[#355e3b]
+                    "
+                  >
                     {order.id}
                   </strong>
+
+
                 </div>
+
+
+
+
                 <div
                   className="
-                  mt-4
+                  mt-5
                   flex
                   justify-between
+                  text-sm
                   "
                 >
-                  <span>
-                    مشتری:
+
+                  <span className="text-[#0d1a12]/60">
+                    مشتری
                   </span>
+
+
                   <strong>
                     {order.customer.name}
                   </strong>
+
+
                 </div>
+
+
+
+
+
                 <div
                   className="
-                  mt-4
+                  mt-5
                   flex
                   justify-between
+                  border-t
+                  border-[#0d1a12]/10
+                  pt-5
                   "
                 >
-                  <span>
-                    مبلغ پرداختی:
+
+                  <span className="text-[#0d1a12]/60">
+                    مبلغ سفارش
                   </span>
-                  <strong>
-                    {order.totalPrice.toLocaleString()} تومان
+
+
+                  <strong
+                    className="
+                    text-xl
+                    text-[#355e3b]
+                    "
+                  >
+                    {order.totalPrice.toLocaleString()}
+                    تومان
                   </strong>
+
+
                 </div>
-                <div className="mt-8 border-t pt-5">
+
+
+
+
+
+
+                <div
+                  className="
+                  mt-8
+                  border-t
+                  border-[#0d1a12]/10
+                  pt-6
+                  "
+                >
+
                   <h2
                     className="
-                    font-bold
-                    text-[#203c27]
+                    text-lg
+                    font-light
+                    text-[#0d1a12]
                     "
                   >
                     محصولات سفارش
                   </h2>
-                  <div className="mt-4 space-y-3">
+
+
+
+                  <div
+                    className="
+                    mt-5
+                    space-y-4
+                    "
+                  >
+
                     {
                       order.items.map(item=>(
+
                         <div
                           key={item.id}
                           className="
@@ -139,47 +268,83 @@ export default function OrderSuccessPage() {
                           text-sm
                           "
                         >
-                          <span>
-                            {item.name} × {item.quantity}
+
+                          <span className="text-[#0d1a12]/70">
+                            {item.name}
+                            {" × "}
+                            {item.quantity}
                           </span>
-                          <span>
+
+
+                          <span
+                            className="
+                            text-[#355e3b]
+                            "
+                          >
+
                             {
                               (
                                 item.price *
                                 item.quantity
-                              )
-                              .toLocaleString()
+                              ).toLocaleString()
+
                             }
+
                             تومان
+
                           </span>
+
+
                         </div>
+
                       ))
                     }
+
                   </div>
+
+
                 </div>
+
+
+
               </div>
+
             )
           }
+
+
+
+
+
           <Link
             href="/shop"
             className="
-            mt-8
+            mt-10
             block
             rounded-full
-            bg-[#d97706]
-            px-8
+            bg-[#0d1a12]
             py-4
             text-center
             font-semibold
-            text-white
-            transition
-            hover:scale-105
+            text-[#f2e9d8]
+            transition-all
+            duration-500
+            hover:bg-[#355e3b]
             "
           >
             بازگشت به فروشگاه
           </Link>
+
+
+
         </div>
+
+
       </Container>
+
+
     </main>
+
   );
+
 }

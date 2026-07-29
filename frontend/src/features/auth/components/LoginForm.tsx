@@ -17,7 +17,6 @@ export default function LoginForm() {
   const [error, setError] = useState("");
 
 
-
   function handleLogin() {
 
     const success = login(
@@ -26,7 +25,7 @@ export default function LoginForm() {
     );
 
 
-    if(!success){
+    if (!success) {
 
       setError(
         "شماره تماس یا رمز عبور اشتباه است."
@@ -42,31 +41,50 @@ export default function LoginForm() {
   }
 
 
-
   return (
 
     <div
       className="
       mx-auto
       max-w-md
-      rounded-3xl
-      bg-white
+      rounded-[40px]
+      border
+      border-[#b9d19a]/40
+      bg-white/70
       p-8
-      shadow-xl
+      shadow-[0_30px_80px_-40px_rgba(13,26,18,0.35)]
+      backdrop-blur-xl
+      sm:p-10
       "
     >
 
-      <h1
-        className="
-        text-center
-        font-serif
-        text-3xl
-        font-bold
-        text-[#203c27]
-        "
-      >
-        ورود به حساب
-      </h1>
+
+      <div className="text-center">
+
+        <p
+          className="
+          text-xs
+          tracking-[0.3em]
+          text-[#355e3b]
+          "
+        >
+          ACCOUNT
+        </p>
+
+
+        <h2
+          className="
+          mt-4
+          text-2xl
+          font-light
+          text-[#0d1a12]
+          "
+        >
+          ورود به حساب
+        </h2>
+
+      </div>
+
 
 
       {
@@ -74,10 +92,11 @@ export default function LoginForm() {
 
           <p
             className="
-            mt-5
-            rounded-xl
+            mt-6
+            rounded-2xl
             bg-red-50
-            p-3
+            px-4
+            py-3
             text-center
             text-sm
             text-red-600
@@ -100,74 +119,76 @@ export default function LoginForm() {
 
 
         <input
-
           value={phone}
-
           onChange={(e)=>
             setPhone(e.target.value)
           }
-
           placeholder="شماره تماس"
-
           className="
           w-full
           rounded-2xl
           border
+          border-[#0d1a12]/10
+          bg-white/80
           px-5
           py-4
+          text-sm
           outline-none
-          focus:border-[#355e3b]
+          transition
+          placeholder:text-[#0d1a12]/30
+          focus:border-[#b9d19a]
+          focus:ring-4
+          focus:ring-[#b9d19a]/20
           "
-
         />
 
 
 
         <input
-
           type="password"
-
           value={password}
-
           onChange={(e)=>
             setPassword(e.target.value)
           }
-
           placeholder="رمز عبور"
-
           className="
           w-full
           rounded-2xl
           border
+          border-[#0d1a12]/10
+          bg-white/80
           px-5
           py-4
+          text-sm
           outline-none
-          focus:border-[#355e3b]
+          transition
+          placeholder:text-[#0d1a12]/30
+          focus:border-[#b9d19a]
+          focus:ring-4
+          focus:ring-[#b9d19a]/20
           "
-
         />
 
 
 
         <button
-
           onClick={handleLogin}
-
           className="
+          mt-4
           w-full
           rounded-full
-          bg-[#d97706]
+          bg-[#0d1a12]
           py-4
-          font-semibold
-          text-white
-          transition
-          hover:scale-105
+          text-sm
+          font-medium
+          text-[#f2e9d8]
+          transition-all
+          duration-500
+          hover:bg-[#355e3b]
+          hover:shadow-[0_15px_35px_-15px_rgba(13,26,18,0.5)]
           "
-
         >
-
           ورود
-
         </button>
 
 
@@ -177,5 +198,4 @@ export default function LoginForm() {
     </div>
 
   );
-
 }

@@ -68,25 +68,46 @@ export default function RegisterForm(){
       className="
       mx-auto
       max-w-md
-      rounded-3xl
-      bg-white
+      rounded-[40px]
+      border
+      border-[#b9d19a]/40
+      bg-white/70
       p-8
-      shadow-xl
+      shadow-[0_30px_80px_-40px_rgba(13,26,18,0.35)]
+      backdrop-blur-xl
+      sm:p-10
       "
     >
 
 
-      <h1
-        className="
-        text-center
-        font-serif
-        text-3xl
-        font-bold
-        text-[#203c27]
-        "
-      >
-        ساخت حساب کاربری
-      </h1>
+      <div className="text-center">
+
+
+        <p
+          className="
+          text-xs
+          tracking-[0.3em]
+          text-[#355e3b]
+          "
+        >
+          CREATE ACCOUNT
+        </p>
+
+
+        <h2
+          className="
+          mt-4
+          text-2xl
+          font-light
+          text-[#0d1a12]
+          "
+        >
+          ساخت حساب کاربری
+        </h2>
+
+
+      </div>
+
 
 
 
@@ -95,10 +116,11 @@ export default function RegisterForm(){
 
           <p
             className="
-            mt-5
-            rounded-xl
+            mt-6
+            rounded-2xl
             bg-red-50
-            p-3
+            px-4
+            py-3
             text-center
             text-sm
             text-red-600
@@ -111,6 +133,7 @@ export default function RegisterForm(){
 
         )
       }
+
 
 
 
@@ -136,10 +159,17 @@ export default function RegisterForm(){
           w-full
           rounded-2xl
           border
+          border-[#0d1a12]/10
+          bg-white/80
           px-5
           py-4
+          text-sm
           outline-none
-          focus:border-[#355e3b]
+          transition
+          placeholder:text-[#0d1a12]/30
+          focus:border-[#b9d19a]
+          focus:ring-4
+          focus:ring-[#b9d19a]/20
           "
 
         />
@@ -160,10 +190,17 @@ export default function RegisterForm(){
           w-full
           rounded-2xl
           border
+          border-[#0d1a12]/10
+          bg-white/80
           px-5
           py-4
+          text-sm
           outline-none
-          focus:border-[#355e3b]
+          transition
+          placeholder:text-[#0d1a12]/30
+          focus:border-[#b9d19a]
+          focus:ring-4
+          focus:ring-[#b9d19a]/20
           "
 
         />
@@ -186,10 +223,17 @@ export default function RegisterForm(){
           w-full
           rounded-2xl
           border
+          border-[#0d1a12]/10
+          bg-white/80
           px-5
           py-4
+          text-sm
           outline-none
-          focus:border-[#355e3b]
+          transition
+          placeholder:text-[#0d1a12]/30
+          focus:border-[#b9d19a]
+          focus:ring-4
+          focus:ring-[#b9d19a]/20
           "
 
         />
@@ -201,14 +245,18 @@ export default function RegisterForm(){
           onClick={handleRegister}
 
           className="
+          mt-4
           w-full
           rounded-full
-          bg-[#d97706]
+          bg-[#0d1a12]
           py-4
-          font-semibold
-          text-white
-          transition
-          hover:scale-105
+          text-sm
+          font-medium
+          text-[#f2e9d8]
+          transition-all
+          duration-500
+          hover:bg-[#355e3b]
+          hover:shadow-[0_15px_35px_-15px_rgba(13,26,18,0.5)]
           "
 
         >

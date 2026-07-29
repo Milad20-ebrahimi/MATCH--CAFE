@@ -18,20 +18,23 @@ export default function ProductCard({
   return (
 
     <div
-      className="
-      group
-      flex
-      h-full
-      flex-col
-      overflow-hidden
-      rounded-3xl
-      bg-white
-      shadow-md
-      transition-all
-      duration-500
-      hover:-translate-y-1
-      hover:shadow-xl
-      "
+  className="
+  group
+  flex
+  h-full
+  flex-col
+  overflow-hidden
+  rounded-[32px]
+  border
+  border-[#0d1a12]/10
+  bg-[#fffdf7]
+  shadow-[0_15px_40px_-25px_rgba(13,26,18,0.4)]
+  transition-all
+  duration-500
+  hover:-translate-y-2
+  hover:border-[#b9d19a]/50
+  hover:shadow-[0_25px_60px_-30px_rgba(13,26,18,0.5)]
+  "
     >
 
 
@@ -41,14 +44,14 @@ export default function ProductCard({
 
         {/* Product Image */}
 
-        <div
-          className="
-          relative
-          h-72
-          overflow-hidden
-          bg-[#f5f1e8]
-          "
-        >
+<div
+  className="
+  relative
+  h-72
+  overflow-hidden
+  bg-[#f2e9d8]
+  "
+>
 
 
           <Image
@@ -59,12 +62,13 @@ export default function ProductCard({
 
             fill
 
-            className="
-            object-cover
-            transition-transform
-            duration-700
-            group-hover:scale-105
-            "
+className="
+object-cover
+transition-transform
+duration-700
+ease-out
+group-hover:scale-110
+"
 
           />
 
@@ -85,14 +89,17 @@ export default function ProductCard({
             items-center
             justify-center
             rounded-full
-            bg-white/90
-            text-[#203c27]
-            shadow-md
-            backdrop-blur-sm
-            transition-all
-            duration-300
-            hover:bg-[#203c27]
-            hover:text-white
+bg-white/70
+text-[#0d1a12]
+border
+border-[#0d1a12]/10
+shadow-lg
+backdrop-blur-md
+transition-all
+duration-500
+hover:bg-[#0d1a12]
+hover:text-[#f2e9d8]
+hover:border-[#b9d19a]/50
             "
             aria-label="افزودن به علاقه‌مندی"
           >
@@ -114,7 +121,7 @@ export default function ProductCard({
                 left-4
                 top-4
                 rounded-full
-                bg-[#355e3b]
+                bg-[#0d1a12]
                 px-3
                 py-1.5
                 text-xs
@@ -156,11 +163,12 @@ export default function ProductCard({
             className="
             font-serif
             text-lg
-            font-bold
+            font-light
+            tracking-wide
             text-[#203c27]
             transition-colors
             duration-300
-            group-hover:text-[#d97706]
+            group-hover:text-[#355e3b]
             "
           >
 
@@ -189,7 +197,7 @@ export default function ProductCard({
               className="
               text-lg
               font-bold
-              text-[#d97706]
+              text-[#355e3b]
               "
             >
 

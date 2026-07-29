@@ -10,16 +10,49 @@ export default function SectionTitle({
   description,
 }: SectionTitleProps) {
   return (
-    <div className="mb-10 text-center">
-      <h2 className="text-3xl font-bold text-slate-900">
+    <div className="mb-12 text-center">
+
+      <p
+        className="
+        mb-4
+        text-xs
+        font-light
+        tracking-[0.35em]
+        text-[#355e3b]
+        "
+      >
+        MATCHA COLLECTION
+      </p>
+
+
+      <h2
+        className="
+        text-3xl
+        font-light
+        text-[#0d1a12]
+        sm:text-4xl
+        "
+      >
         {title}
       </h2>
 
+
       {description && (
-        <p className="mt-3 text-sm text-slate-500">
+        <p
+          className="
+          mx-auto
+          mt-4
+          max-w-xl
+          text-sm
+          font-light
+          leading-8
+          text-[#0d1a12]/60
+          "
+        >
           {description}
         </p>
       )}
+
     </div>
   );
 }
