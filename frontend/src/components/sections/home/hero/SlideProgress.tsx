@@ -20,7 +20,7 @@ const SlideProgress: React.FC<SlideProgressProps> = ({
   onSelect,
 }) => (
   <div
-    className="absolute inset-x-0 top-0 z-20 flex gap-1.5 p-4 sm:p-6"
+className="absolute inset-x-0 bottom-24 z-20 flex gap-1.5 px-6 sm:px-10"
     role="tablist"
     aria-label="اسلایدهای هیرو"
   >

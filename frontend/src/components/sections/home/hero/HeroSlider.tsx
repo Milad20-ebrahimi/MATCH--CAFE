@@ -12,7 +12,6 @@ import type {
   HeroSlide,
 } from "./types";
 
-import SlideProgress from "./SlideProgress";
 import SlideMediaLayer from "./SlideMediaLayer";
 
 import { useCountdown } from "./useCountdown";
@@ -45,7 +44,6 @@ const HeroSlider: React.FC<HeroSliderProps> = ({
 
   const [isMuted, setIsMuted] = useState(true);
 
-  const [progressKey, setProgressKey] = useState(0);
 
   const [scrollY, setScrollY] = useState(0);
 
@@ -81,8 +79,6 @@ const HeroSlider: React.FC<HeroSliderProps> = ({
         (index + slides.length) % slides.length;
 
       setActiveIndex(next);
-
-      setProgressKey(k=>k+1);
 
     },
 
@@ -162,9 +158,6 @@ const HeroSlider: React.FC<HeroSliderProps> = ({
     autoPlayMs,
 
     goNext,
-
-    progressKey,
-
   ]);
 
 
@@ -438,32 +431,14 @@ const HeroSlider: React.FC<HeroSliderProps> = ({
 
 
 
-<SlideProgress
-
-  total={slides.length}
-
-  activeIndex={activeIndex}
-
-  progressKey={progressKey}
-
-  autoPlayMs={autoPlayMs}
-
-  isPaused={isPaused}
-
-  onSelect={goTo}
-
-/>
-
-
-
 {/* Contact */}
 
 <div
   className="
   absolute
-  top-16
+  top-28
   right-6
-  z-20
+  z-30
   hidden
   flex-col
   items-end
