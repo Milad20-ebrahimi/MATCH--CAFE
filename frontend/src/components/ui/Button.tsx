@@ -3,7 +3,8 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 type ButtonVariant =
   | "primary"
   | "secondary"
-  | "outline";
+  | "outline"
+  | "cart";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -21,6 +22,9 @@ const variants = {
 
   outline:
     "border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white",
+
+  cart:
+    "bg-[#d97706] text-white hover:bg-[#b45309]",
 };
 
 

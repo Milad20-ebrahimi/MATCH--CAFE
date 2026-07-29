@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
+import { AuthProvider } from "@/features/auth/context/AuthContext";
+import { CartProvider } from "@/features/cart/context/CartContext";
+import {
+  ProductsProvider
+} from "@/features/products/context/ProductsContext";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
@@ -42,13 +47,25 @@ export default function RootLayout({
     >
 <body className="min-h-full flex flex-col bg-white text-slate-900">
 
-  <Navbar />
+<AuthProvider>
 
-  <main className="flex-1">
-    {children}
-  </main>
+  <CartProvider>
 
-  <Footer />
+    <ProductsProvider>
+
+      <Navbar />
+
+      <main className="flex-1">
+        {children}
+      </main>
+
+      <Footer />
+
+    </ProductsProvider>
+
+  </CartProvider>
+
+</AuthProvider>
 
 </body>
     </html>
